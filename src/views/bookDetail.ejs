@@ -17,8 +17,8 @@
         <h1 class="display-5 fw-bold"><%= book.title %></h1>
         <div class="col-lg-6 mx-auto">
           <p class="lead mb-4 fw-bold">Authors: </p>
-          <% authors.forEach(author => { %>
-            <span class="lead mb-4">  | <%= author.name %> |</span>
+          <% book.authors.map((author, index) => { %>
+            <%= `${author.name}${(index === book.authors.length - 1) ? '.' : ', '}` %>
           <% }) %>
           <hr>
           <p class="lead mb-4 fw-bold">Release Date: </p>
