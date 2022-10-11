@@ -57,8 +57,16 @@ const mainController = {
       .catch((error) => console.log(error));
   },
   authorBooks: (req, res) => {
-    // Implement books by author
-    res.render("authorBooks");
+    db.Author.findAll({
+      include: [{ association: "books" }],
+      where: {
+        id: req.params.id
+      }
+    })
+    .then((authorBooks) => {
+      res.render("authorBooks", { books: authorBooks[0].books });
+    })
+    .catch((error) => console.log(error));
   },
   register: (req, res) => {
     res.render("register");
