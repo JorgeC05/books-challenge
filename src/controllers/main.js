@@ -93,12 +93,34 @@ const mainController = {
     res.render("home");
   },
   edit: (req, res) => {
-    // Implement edit book
-    res.render("editBook", { id: req.params.id });
+    let idReference = req.params.id
+    db.Book.findByPk(idReference)
+      .then( book =>{
+        res.render("editBook", { book });
+      } )
   },
   processEdit: (req, res) => {
-    // Implement edit book
-    res.render("home");
+    const { title, cover, description }= req.body
+    
+    let editedBook = {
+      title,
+      cover,
+      description
+    };
+
+    db.Book.update(editedBook,{
+      where: {
+        id: req.params.id
+      }
+    });
+
+    db.Book.findAll({
+      include: [{ association: "authors" }],
+    })
+      .then((books) => {
+        res.render("home", { books });
+      })
+      .catch((error) => console.log(error));    
   },
 };
 
