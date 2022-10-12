@@ -28,7 +28,9 @@
               <a href="/books/edit/<%= book.id %>" class="btn btn-primary btn-lg px-4 gap-3">Edit</a>
             <% } %>
             <a href="/books/edit/<%= book.id %>" class="btn btn-primary btn-lg px-4 gap-3">Edit</a>
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Delete</button>
+            <form action="/books/delete/<%= book.id %>?_method=DELETE" method="post">
+              <button type="submit" class="btn btn-outline-secondary btn-lg px-4">Delete</button>
+            </form>
           </div>
         </div>
       </div>

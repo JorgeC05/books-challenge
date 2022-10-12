@@ -46,8 +46,19 @@ const mainController = {
       .catch((error) => console.log(error));
   },
   deleteBook: (req, res) => {
-    // Implement delete book
-    res.render("home");
+
+    db.Book.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    db.Book.findAll({
+      include: [{ association: "authors" }],
+    })
+      .then((books) => {
+        res.render("home", { books });
+      })
+      .catch((error) => console.log(error));
   },
   authors: (req, res) => {
     db.Author.findAll()
@@ -101,7 +112,7 @@ const mainController = {
   },
   processEdit: (req, res) => {
     const { title, cover, description }= req.body
-    
+
     let editedBook = {
       title,
       cover,
@@ -121,7 +132,7 @@ const mainController = {
         res.render("home", { books });
       })
       .catch((error) => console.log(error));    
-  },
+  }
 };
 
 module.exports = mainController;
