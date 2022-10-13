@@ -11,8 +11,18 @@
     </ul>
 
     <div class="col-md-3 text-end">
-      <a href="/users/login" class="btn btn-outline-primary me-2">Login</a>
+      <% if (!locals.message) { %>
+        <a href="/users/login" class="btn btn-outline-primary me-2">Login</a>
+      <% } else { %>
+        <a href="/users/logout" class="btn btn-outline-primary me-2">Logout</a>
+      <% }  %>
+      
       <a href="/users/register" class="btn btn-outline-primary me-2">Sign-up</a>
+    </div>
+    <div class="col-md-3  ">
+      <% if (locals.message) { %>
+        <p class="mb-2 justify-content-center mb-md-0"> <%= message.success %>  </p>
+      <% } %>
     </div>
   </header>
 </div>

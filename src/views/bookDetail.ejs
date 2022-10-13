@@ -24,13 +24,12 @@
           <p class="lead mb-4 fw-bold">Release Date: </p>
           <p class="lead mb-4"><%= book.description %> </p>
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <% if (5 > 6) { %>
-              <a href="/books/edit/<%= book.id %>" class="btn btn-primary btn-lg px-4 gap-3">Edit</a>
-            <% } %>
-            <a href="/books/edit/<%= book.id %>" class="btn btn-primary btn-lg px-4 gap-3">Edit</a>
-            <form action="/books/delete/<%= book.id %>?_method=DELETE" method="post">
-              <button type="submit" class="btn btn-outline-secondary btn-lg px-4">Delete</button>
-            </form>
+            <% if (locals.message && message.rol == 1) { %>
+                <a href="/books/edit/<%= book.id %>" class="btn btn-primary btn-lg px-4 gap-3">Edit</a>
+                <form action="/books/delete/<%= book.id %>?_method=DELETE" method="post">
+                  <button type="submit" class="btn btn-outline-secondary btn-lg px-4">Delete</button>
+                </form>
+            <% } %>                          
           </div>
         </div>
       </div>
