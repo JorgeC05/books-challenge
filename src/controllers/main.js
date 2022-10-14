@@ -109,8 +109,6 @@ const mainController = {
       email: req.body.email,
       password: req.body.password,
     };
-
-    console.log(userToValidate); // borrar después
     
     if(userToValidate.email.length != 0){
       res.cookie("usuario", userToValidate.email)
@@ -125,19 +123,17 @@ const mainController = {
 
     userFound.then( user => {
       if(user){
-        // console.log('Puesto en Cookies') // Borrar después
+
         let comparePassword = bcryptjs.compareSync(userToValidate.password, user.Pass);
-        // console.log(comparePassword) // Borrar después
+
         if (comparePassword) {
           req.session.message = {
             success: `Usuario ${user.Name} logueado`,
             rol: `${user.CategoryId }` 
-          }      
-        // res.render("home", { message: req.session.message, books } );
-        console.log(req.session.message.rol)
+          }    
+
         res.redirect('/')
         } else {
-          console.log('Datos Incorrectos')
           req.session.message = {
             error: `Datos Incorrectos, verifique por favor`
           }  
@@ -156,7 +152,6 @@ const mainController = {
   logout: async(req , res) =>{
     const books = await db.Book.findAll({ include: [{ association: "authors" }]})
     req.session.destroy();
-    // res.render("home", { books, message: req.session.message });
     res.redirect('/')
   },
   edit: (req, res) => {
